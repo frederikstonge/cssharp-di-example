@@ -23,8 +23,6 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
         set => _config = value; 
     }
 
-    public Application Application => _application ?? throw new NullReferenceException(nameof(Application));
-
     public void OnConfigParsed(PluginConfig config)
     {
         Config = config;
