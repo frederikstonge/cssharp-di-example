@@ -13,7 +13,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
     private IApplication? _application;
     private PluginConfig? _config;
 
-    public override string ModuleName => "Plugin-DI";
+    public override string ModuleName => "Example DI";
     
     public override string ModuleDescription => "Example plugin with dependency injection";
 
