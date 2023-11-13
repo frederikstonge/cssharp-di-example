@@ -14,8 +14,12 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
     private PluginConfig? _config;
 
     public override string ModuleName => "Plugin-DI";
+    
+    public override string ModuleDescription => "Example plugin with dependency injection";
 
     public override string ModuleVersion => "0.0.1";
+
+    public override string ModuleAuthor => "frederikstonge";
 
     public PluginConfig Config 
     {
