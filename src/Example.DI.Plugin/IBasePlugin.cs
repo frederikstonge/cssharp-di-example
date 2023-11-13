@@ -3,7 +3,7 @@ using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Events;
 using CounterStrikeSharp.API.Modules.Timers;
 
-namespace Plugin.DI;
+namespace Example.DI.Plugin;
 
 public interface IBasePlugin : IPlugin
 {

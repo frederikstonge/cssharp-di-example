@@ -1,10 +1,10 @@
 ﻿using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes;
+using Example.DI.Plugin.Models;
+using Example.DI.Plugin.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Plugin.DI.Models;
-using Plugin.DI.Services;
 
-namespace Plugin.DI;
+namespace Example.DI.Plugin;
 
 [MinimumApiVersion(50)]
 public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin

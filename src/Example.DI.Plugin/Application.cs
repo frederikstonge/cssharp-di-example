@@ -1,10 +1,10 @@
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Timers;
-using Plugin.DI.Models;
-using Plugin.DI.Services;
+using Example.DI.Plugin.Models;
+using Example.DI.Plugin.Services;
 
-namespace Plugin.DI;
+namespace Example.DI.Plugin;
 
 public class Application : IApplication
 {

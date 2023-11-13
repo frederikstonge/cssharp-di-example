@@ -1,6 +1,6 @@
 using CounterStrikeSharp.API.Core;
 
-namespace Plugin.DI.Models;
+namespace Example.DI.Plugin.Models;
 
 public class PluginConfig : IBasePluginConfig
 {

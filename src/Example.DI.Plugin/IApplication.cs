@@ -1,4 +1,4 @@
-namespace Plugin.DI;
+namespace Example.DI.Plugin;
 
 public interface IApplication
 {

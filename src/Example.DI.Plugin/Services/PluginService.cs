@@ -1,4 +1,4 @@
-namespace Plugin.DI.Services;
+namespace Example.DI.Plugin.Services;
 
 public class PluginService : IPluginService
 {
