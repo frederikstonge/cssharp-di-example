@@ -13,16 +13,17 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
     private Application? _application;
     private PluginConfig? _config;
 
-
     public override string ModuleName => "Plugin-DI";
 
     public override string ModuleVersion => "0.0.1";
 
     public PluginConfig Config 
-    { 
+    {
         get => _config ?? throw new NullReferenceException(nameof(Config));
         set => _config = value; 
     }
+
+    public Application Application => _application ?? throw new NullReferenceException(nameof(Application));
 
     public void OnConfigParsed(PluginConfig config)
     {
@@ -32,10 +33,10 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
     public override void Load(bool hotReload)
     {
         base.Load(hotReload);
+
         var services = new ServiceCollection();
         services.AddSingleton(this);
         services.AddSingleton(Config);
-        
         services.AddSingleton<IApplication, Application>();
 
         // Register other services here
@@ -46,8 +47,10 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
     }
 
     public override void Unload(bool hotReload)
-    {      
+    {
+        // Remove reference before disposing the service provider
         _application = null;
+
         _serviceProvider?.Dispose();
         _serviceProvider = null;
 
