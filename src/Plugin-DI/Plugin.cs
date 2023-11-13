@@ -10,7 +10,7 @@ namespace Plugin.DI;
 public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
 {
     private ServiceProvider? _serviceProvider;
-    private Application? _application;
+    private IApplication? _application;
     private PluginConfig? _config;
 
     public override string ModuleName => "Plugin-DI";
@@ -41,7 +41,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
         services.AddSingleton<IPluginService, PluginService>();
 
         _serviceProvider = services.BuildServiceProvider();
-        _application = _serviceProvider.GetRequiredService<Application>();
+        _application = _serviceProvider.GetRequiredService<IApplication>();
     }
 
     public override void Unload(bool hotReload)

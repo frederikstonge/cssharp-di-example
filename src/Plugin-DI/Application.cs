@@ -7,9 +7,9 @@ public class Application : IApplication
 {
     private readonly Plugin _plugin;
     private readonly PluginConfig _config;
-    private readonly PluginService _pluginService;
+    private readonly IPluginService _pluginService;
 
-    public Application(Plugin plugin, PluginConfig config, PluginService pluginService)
+    public Application(Plugin plugin, PluginConfig config, IPluginService pluginService)
     {
         _plugin = plugin;
         _config = config;
