@@ -2,16 +2,11 @@ using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Events;
 using CounterStrikeSharp.API.Modules.Timers;
-using static CounterStrikeSharp.API.Core.BasePlugin;
 
 namespace Plugin.DI;
 
-public interface IBasePlugin
+public interface IBasePlugin : IPlugin
 {
-    string ModuleName { get; }
-
-    string ModuleVersion { get; }
-
     string ModuleAuthor { get; }
 
     string ModuleDescription { get; }
@@ -33,7 +28,7 @@ public interface IBasePlugin
     // Type parameters:
     //   T:
     //     The type of the game event.
-    void RegisterEventHandler<T>(GameEventHandler<T> handler, HookMode hookMode = HookMode.Post) 
+    void RegisterEventHandler<T>(BasePlugin.GameEventHandler<T> handler, HookMode hookMode = HookMode.Post) 
         where T : GameEvent;
 
     void DeregisterEventHandler(string name, Delegate handler, bool post);
