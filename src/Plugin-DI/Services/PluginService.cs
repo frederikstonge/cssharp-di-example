@@ -4,6 +4,6 @@ public class PluginService : IPluginService
 {
     public PluginService()
     {
-        // Plugin example that will be injected in the Application class
+        // Plugin service example that will be injected in the Application class
     }
 }
