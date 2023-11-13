@@ -41,6 +41,8 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
         services.AddSingleton<IPluginService, PluginService>();
 
         _serviceProvider = services.BuildServiceProvider();
+
+        // Instantiate Application class where event handlers and other things will be declared
         _application = _serviceProvider.GetRequiredService<IApplication>();
     }
 

@@ -11,6 +11,7 @@ public class Application : IApplication
 
     public Application(Plugin plugin, PluginConfig config, IPluginService pluginService)
     {
+        // Application class is where you create your event handlers and call services
         _plugin = plugin;
         _config = config;
         _pluginService = pluginService;
