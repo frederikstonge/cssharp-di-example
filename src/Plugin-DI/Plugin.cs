@@ -46,11 +46,11 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
     }
 
     public override void Unload(bool hotReload)
-    {
-        base.Unload(hotReload);
-
+    {      
         _application = null;
         _serviceProvider?.Dispose();
         _serviceProvider = null;
+
+        base.Unload(hotReload);
     }
 }
