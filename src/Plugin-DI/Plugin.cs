@@ -34,10 +34,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
         base.Load(hotReload);
         var services = new ServiceCollection();
         services.AddSingleton(this);
-        if (Config != null)
-        {
-            services.AddSingleton(Config);
-        }
+        services.AddSingleton(Config);
         
         services.AddSingleton<IApplication, Application>();
 
