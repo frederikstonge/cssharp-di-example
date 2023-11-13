@@ -7,7 +7,7 @@ using Plugin.DI.Services;
 namespace Plugin.DI;
 
 [MinimumApiVersion(50)]
-public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
+public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
 {
     private ServiceProvider? _serviceProvider;
     private IApplication? _application;
@@ -37,7 +37,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>
         base.Load(hotReload);
 
         var services = new ServiceCollection();
-        services.AddSingleton(this);
+        services.AddSingleton<IBasePlugin>(this);
         services.AddSingleton(Config);
         services.AddSingleton<IApplication, Application>();
 
