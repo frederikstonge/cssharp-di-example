@@ -14,6 +14,7 @@ env:
   BUILD_NUMBER: ${{ github.run_number }}
   PROJECT_PATH: "src/Example.DI.Plugin/Example.DI.Plugin.csproj"
   PROJECT_NAME: "Example.DI.Plugin"
+  OUTPUT_PATH: "./Release"
 
 
 jobs:
@@ -30,13 +31,13 @@ jobs:
     - name: Restore
       run: dotnet restore
     - name: Build
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -o ./Release -p:Version=${{ env.VERSION }} --version-suffix ${{ env.BUILD_NUMBER }}
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -o ${{ OUTPUT_PATH }} -p:Version=${{ env.VERSION }} --version-suffix ${{ env.BUILD_NUMBER }}
     - name: Zip
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
         filename: '${{ env.PROJECT_NAME }}-${{ env.VERSION }}.${{ env.BUILD_NUMBER }}.zip'
-        path: Release
+        path: ${{ OUTPUT_PATH }}
     - name: Release
       uses: ncipollo/release-action@v1.12.0
       with:
