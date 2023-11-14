@@ -36,7 +36,7 @@ jobs:
     - name: Release
       uses: ncipollo/release-action@v1.12.0
       with:
-        artifacts: ./Release
+        artifacts: ./Release/**
         name: "Version ${{ env.VERSION }}.${{ env.BUILD_NUMBER }}"
         tag: "v${{ env.VERSION }}.${{ env.BUILD_NUMBER }}"
         body: |
