@@ -30,9 +30,10 @@ jobs:
     - name: Build
       run: dotnet build src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release -p:Version=${{ env.VERSION }} --version-suffix ${{ env.BUILD_NUMBER }}
     - name: Zip
-      uses: montudor/action-zip@v1
+      uses: vimtor/action-zip@v1.1
       with:
-        args: zip -qq -r Example.Plugin-${{ env.VERSION }}.${{ env.BUILD_NUMBER }}.zip Release
+        files: Release/**
+        dest: Example.Plugin-${{ env.VERSION }}.${{ env.BUILD_NUMBER }}.zip
     - name: Release
       uses: ncipollo/release-action@v1.12.0
       with:
