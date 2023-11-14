@@ -34,7 +34,7 @@ jobs:
       with:
         type: 'zip'
         filename: 'Example.Plugin-${{ env.VERSION }}.${{ env.BUILD_NUMBER }}.zip'
-        directory: Release
+        path: Release
     - name: Release
       uses: ncipollo/release-action@v1.12.0
       with:
