@@ -1,4 +1,5 @@
-﻿using CounterStrikeSharp.API.Core;
+﻿using System.Reflection;
+using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
@@ -17,7 +18,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
     
     public override string ModuleDescription => "Example plugin with dependency injection";
 
-    public override string ModuleVersion => "0.0.1";
+    public override string ModuleVersion => typeof(Plugin).Assembly!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
 
     public override string ModuleAuthor => "frederikstonge";
 
