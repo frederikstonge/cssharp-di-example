@@ -48,6 +48,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
 
         // Instantiate Application class where event handlers and other things will be declared
         _application = _serviceProvider.GetRequiredService<IApplication>();
+        _application.Initialize();
     }
 
     public override void Unload(bool hotReload)
@@ -59,5 +60,11 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
         _serviceProvider = null;
 
         base.Unload(hotReload);
+    }
+
+    public void RemoveTimer(CounterStrikeSharp.API.Modules.Timers.Timer timer)
+    {
+        timer.Kill();
+        Timers.Remove(timer);
     }
 }
