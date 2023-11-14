@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes;
+using Example.DI.Plugin.Facades;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,8 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
 
         // Register other services here
         services.AddSingleton<IPluginService, PluginService>();
+        
+        services.AddHttpClient<IPluginFacade, PluginFacade>();
 
         _serviceProvider = services.BuildServiceProvider();
 
