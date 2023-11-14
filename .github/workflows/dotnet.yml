@@ -14,7 +14,7 @@ env:
   BUILD_NUMBER: ${{ github.run_number }}
   PROJECT_PATH: "src/Example.DI.Plugin/Example.DI.Plugin.csproj"
   PROJECT_NAME: "Example.DI.Plugin"
-  OUTPUT_PATH: "./Release"
+  OUTPUT_PATH: "Release"
 
 
 jobs:
