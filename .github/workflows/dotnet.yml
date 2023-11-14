@@ -30,7 +30,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish -c Release -o ./Release --no-build
+      run: dotnet publish src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release --no-build
     - name: Release
       uses: actions/create-release@v1
       env:
