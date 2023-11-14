@@ -31,14 +31,14 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release -p:Version=${{ env.VERSION }} --version-suffix {{ $GITHUB_RUN_NUMBER }}
+      run: dotnet publish src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release -p:Version=${{ env.VERSION }} --version-suffix ${{ GITHUB_RUN_NUMBER }}
     - name: Release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: v${{ env.VERSION }}.{{ $GITHUB_RUN_NUMBER }}
-        release_name: Version ${{ env.VERSION }}.{{ $GITHUB_RUN_NUMBER }}
+        tag_name: v${{ env.VERSION }}.${{ GITHUB_RUN_NUMBER }}
+        release_name: Version ${{ env.VERSION }}.${{ GITHUB_RUN_NUMBER }}
         body: |
           Place the plugin in game/csgo/addons/counterstrikesharp/plugins/<plugin-name>
         draft: false
