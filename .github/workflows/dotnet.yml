@@ -12,9 +12,10 @@ on:
 env:
   VERSION: 1.0.0
 
+
 jobs:
   build:
-
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +27,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build -p:Version=$VERSION -c Release --version-suffix $GITHUB_RUN_NUMBER --no-restore
+      run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release --no-build
+      run: dotnet publish src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release -p:Version=$VERSION --version-suffix $GITHUB_RUN_NUMBER 
     - name: Release
       uses: actions/create-release@v1
       env:
