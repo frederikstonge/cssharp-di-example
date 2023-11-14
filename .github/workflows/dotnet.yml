@@ -25,7 +25,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Restore dependencies
+    - name: Restore
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
@@ -34,13 +34,10 @@ jobs:
     - name: Publish
       run: dotnet publish src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release -p:Version=${{ env.VERSION }} --version-suffix ${{ env.BUILD_NUMBER }}
     - name: Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      uses: ncipollo/release-action@v1.12.0
       with:
-        tag_name: v${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
-        release_name: Version ${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
+        artifacts: ./Release
+        name: "Version ${{ env.VERSION }}.${{ env.BUILD_NUMBER }}"
+        tag: "v${{ env.VERSION }}.${{ env.BUILD_NUMBER }}"
         body: |
           Place the plugin in game/csgo/addons/counterstrikesharp/plugins/<plugin-name>
-        draft: false
-        prerelease: false
