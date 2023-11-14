@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.DI.Plugin;
 
-[MinimumApiVersion(50)]
+[MinimumApiVersion(52)]
 public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
 {
     private ServiceProvider? _serviceProvider;
