@@ -60,8 +60,6 @@ public interface IBasePlugin : IPlugin
 
     CounterStrikeSharp.API.Modules.Timers.Timer AddTimer(float interval, Action callback, TimerFlags? flags = null);
 
-    void RemoveTimer(CounterStrikeSharp.API.Modules.Timers.Timer timer);
-
     void RegisterAllAttributes(object instance);
 
     void InitializeConfig(object instance, Type pluginType);

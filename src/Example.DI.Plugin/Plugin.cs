@@ -61,10 +61,4 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
 
         base.Unload(hotReload);
     }
-
-    public void RemoveTimer(CounterStrikeSharp.API.Modules.Timers.Timer timer)
-    {
-        timer.Kill();
-        Timers.Remove(timer);
-    }
 }
