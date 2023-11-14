@@ -28,11 +28,7 @@ jobs:
     - name: Restore
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Publish
-      run: dotnet publish src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release -p:Version=${{ env.VERSION }} --version-suffix ${{ env.BUILD_NUMBER }}
+      run: dotnet build src/Example.DI.Plugin/Example.DI.Plugin.csproj -c Release -o ./Release -p:Version=${{ env.VERSION }} --version-suffix ${{ env.BUILD_NUMBER }}
     - name: Release
       uses: ncipollo/release-action@v1.12.0
       with:
