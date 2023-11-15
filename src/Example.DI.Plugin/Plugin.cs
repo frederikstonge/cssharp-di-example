@@ -8,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.DI.Plugin;
 
-[MinimumApiVersion(52)]
-public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
+[MinimumApiVersion(53)]
+public class Plugin : BasePlugin, IBasePlugin, IPluginConfig<PluginConfig>
 {
     private ServiceProvider? _serviceProvider;
     private IApplication? _application;
@@ -38,6 +38,7 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
     {
         base.Load(hotReload);
 
+        // Create DI container
         var services = new ServiceCollection();
         services.AddSingleton<IBasePlugin>(this);
         services.AddSingleton(Config);
@@ -46,8 +47,10 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
         // Register other services here
         services.AddSingleton<IPluginService, PluginService>();
         
+        // Register facades here (Services that have an httpclient)
         services.AddHttpClient<IPluginFacade, PluginFacade>();
 
+        // Build service provider
         _serviceProvider = services.BuildServiceProvider();
 
         // Instantiate Application class where event handlers and other things will be declared
@@ -57,9 +60,10 @@ public class Plugin : BasePlugin, IPluginConfig<PluginConfig>, IBasePlugin
 
     public override void Unload(bool hotReload)
     {
-        // Remove reference before disposing the service provider
+        // Remove reference
         _application = null;
 
+        // Dispose service provider
         _serviceProvider?.Dispose();
         _serviceProvider = null;
 

@@ -8,7 +8,6 @@ public class PluginService : IPluginService
 
     public PluginService(IPluginFacade pluginFacade)
     {
-        // Plugin service example that will be injected in the Application class
         _pluginFacade = pluginFacade;
     }
 }
