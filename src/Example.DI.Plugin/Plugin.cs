@@ -5,6 +5,7 @@ using Example.DI.Plugin.Facades;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Example.DI.Plugin;
 
@@ -40,6 +41,8 @@ public class Plugin : BasePlugin, IBasePlugin, IPluginConfig<PluginConfig>
 
         // Create DI container
         var services = new ServiceCollection();
+        services.AddLogging();
+
         services.AddSingleton<IBasePlugin>(this);
         services.AddSingleton(Config);
         services.AddSingleton<IApplication, Application>();

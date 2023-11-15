@@ -3,17 +3,24 @@ using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Timers;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Example.DI.Plugin;
 
 public class Application : IApplication
 {
+    private readonly ILogger _logger;
     private readonly IBasePlugin _plugin;
     private readonly PluginConfig _config;
     private readonly IPluginService _pluginService;
 
-    public Application(IBasePlugin plugin, PluginConfig config, IPluginService pluginService)
+    public Application(
+        ILogger<Application> logger,
+        IBasePlugin plugin,
+        PluginConfig config,
+        IPluginService pluginService)
     {
+        _logger = logger;
         _plugin = plugin;
         _config = config;
         _pluginService = pluginService;
