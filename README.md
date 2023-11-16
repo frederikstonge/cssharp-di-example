@@ -5,3 +5,6 @@
 - StyleCop Analyzers to make sure your code is clean (Linter)
 - Github workflow to build, zip and create a release
 - ILogger implementation (Console provider in example)
+
+# References
+[CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp)
