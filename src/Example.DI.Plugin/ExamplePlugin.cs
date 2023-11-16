@@ -9,38 +9,67 @@ using Microsoft.Extensions.Logging;
 
 namespace Example.DI.Plugin;
 
+/// <summary>
+/// Example plugin class
+/// </summary>
 [MinimumApiVersion(53)]
 public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
 {
     private readonly string _moduleVersion;
     private ServiceProvider? _serviceProvider;
     private PluginConfig? _config;
-    private IApplication? _application;
+    private IApplication? _application; 
 
+    /// <summary>
+    /// Create instance of ExamplePlugin
+    /// </summary>
     public ExamplePlugin()
     {
         _moduleVersion = typeof(ExamplePlugin).Assembly!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
     }
 
+    /// <summary>
+    /// Module name that will be displayed in CSSharp
+    /// </summary>
     public override string ModuleName => "Example DI";
     
+    /// <summary>
+    /// Module description that will be displayed in CSSharp
+    /// </summary>
     public override string ModuleDescription => "Example plugin with dependency injection";
 
+    /// <summary>
+    /// Module version that will be displayed in CSSharp
+    /// </summary>
     public override string ModuleVersion => _moduleVersion;
 
+    /// <summary>
+    /// Module author that will be displayed in CSSharp
+    /// </summary>
     public override string ModuleAuthor => "frederikstonge";
 
+    /// <summary>
+    /// Config that is parsed by CSSharp
+    /// </summary>
     public PluginConfig Config 
     {
         get => _config ?? throw new NullReferenceException(nameof(Config));
         set => _config = value; 
     }
 
+    /// <summary>
+    /// Called when the config is parsed by CSSharp
+    /// </summary>
+    /// <param name="config">Parsed config</param>
     public void OnConfigParsed(PluginConfig config)
     {
         Config = config;
     }
 
+    /// <summary>
+    /// Method that is called on load of the plugin
+    /// </summary>
+    /// <param name="hotReload">Is called from hot reload</param>
     public override void Load(bool hotReload)
     {
         base.Load(hotReload);
@@ -76,6 +105,10 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
         _application.Initialize();
     }
 
+    /// <summary>
+    /// Method that is called on unload of the plugin
+    /// </summary>
+    /// <param name="hotReload">Is called from hot reload</param>
     public override void Unload(bool hotReload)
     {
         // Remove reference

@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Example.DI.Plugin;
 
+/// <summary>
+/// Application class
+/// </summary>
 public class Application : IApplication
 {
     private readonly ILogger _logger;
@@ -14,6 +17,13 @@ public class Application : IApplication
     private readonly PluginConfig _config;
     private readonly IPluginService _pluginService;
 
+    /// <summary>
+    /// Create instance of Application
+    /// </summary>
+    /// <param name="logger">Logger</param>
+    /// <param name="plugin">Plugin reference</param>
+    /// <param name="config">Parsed config</param>
+    /// <param name="pluginService">Plugin service</param>
     public Application(
         ILogger<Application> logger,
         IExamplePlugin plugin,
@@ -26,6 +36,9 @@ public class Application : IApplication
         _pluginService = pluginService;
     }
 
+    /// <summary>
+    /// Initialize event registrations and more
+    /// </summary>
     public void Initialize()
     {
         _plugin.AddCommand("test", "test method", Test);
@@ -34,20 +47,38 @@ public class Application : IApplication
         _plugin.AddTimer(0.25f, OnTimerTick, TimerFlags.REPEAT | TimerFlags.STOP_ON_MAPCHANGE);
     }
 
-    public void Test(CCSPlayerController? client, CommandInfo commandInfo)
+    /// <summary>
+    /// Callback of command `test`
+    /// </summary>
+    /// <param name="client">The player's controller reference</param>
+    /// <param name="commandInfo">Command information</param>
+    private void Test(CCSPlayerController? client, CommandInfo commandInfo)
     {
     }
 
-    public void OnMapStart(string mapName)
+    /// <summary>
+    /// Callback of registered listener `OnMapStart`
+    /// </summary>
+    /// <param name="mapName"></param>
+    private void OnMapStart(string mapName)
     {
     }
 
-    public HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo gameEventInfo)
+    /// <summary>
+    /// Callback of registered event handler `EventPlayerDeath`
+    /// </summary>
+    /// <param name="event">The event reference</param>
+    /// <param name="gameEventInfo">Event information</param>
+    /// <returns></returns>
+    private HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo gameEventInfo)
     {
         return HookResult.Continue;
     }
 
-    public void OnTimerTick()
+    /// <summary>
+    /// Callback called on timer tick
+    /// </summary>
+    private void OnTimerTick()
     {
     }
 }
