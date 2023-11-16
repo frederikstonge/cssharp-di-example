@@ -41,7 +41,11 @@ public class Plugin : BasePlugin, IBasePlugin, IPluginConfig<PluginConfig>
 
         // Create DI container
         var services = new ServiceCollection();
-        services.AddLogging();
+
+        services.AddLogging(options => 
+        {
+            options.AddConsole();
+        });
 
         services.AddSingleton<IBasePlugin>(this);
         services.AddSingleton(Config);
