@@ -12,15 +12,21 @@ namespace Example.DI.Plugin;
 [MinimumApiVersion(53)]
 public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
 {
+    private readonly string _moduleVersion;
     private ServiceProvider? _serviceProvider;
-    private IApplication? _application;
     private PluginConfig? _config;
+    private IApplication? _application;
+
+    public ExamplePlugin()
+    {
+        _moduleVersion = typeof(ExamplePlugin).Assembly!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
+    }
 
     public override string ModuleName => "Example DI";
     
     public override string ModuleDescription => "Example plugin with dependency injection";
 
-    public override string ModuleVersion => typeof(ExamplePlugin).Assembly!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
+    public override string ModuleVersion => _moduleVersion;
 
     public override string ModuleAuthor => "frederikstonge";
 
