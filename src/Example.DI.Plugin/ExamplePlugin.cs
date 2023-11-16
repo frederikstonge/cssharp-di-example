@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace Example.DI.Plugin;
 
 [MinimumApiVersion(53)]
-public class Plugin : BasePlugin, IBasePlugin, IPluginConfig<PluginConfig>
+public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
 {
     private ServiceProvider? _serviceProvider;
     private IApplication? _application;
@@ -20,7 +20,7 @@ public class Plugin : BasePlugin, IBasePlugin, IPluginConfig<PluginConfig>
     
     public override string ModuleDescription => "Example plugin with dependency injection";
 
-    public override string ModuleVersion => typeof(Plugin).Assembly!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
+    public override string ModuleVersion => typeof(ExamplePlugin).Assembly!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
 
     public override string ModuleAuthor => "frederikstonge";
 
@@ -39,6 +39,11 @@ public class Plugin : BasePlugin, IBasePlugin, IPluginConfig<PluginConfig>
     {
         base.Load(hotReload);
 
+        if (!Config.IsEnabled)
+        {
+            return;
+        }
+
         // Create DI container
         var services = new ServiceCollection();
 
@@ -47,7 +52,7 @@ public class Plugin : BasePlugin, IBasePlugin, IPluginConfig<PluginConfig>
             options.AddConsole();
         });
 
-        services.AddSingleton<IBasePlugin>(this);
+        services.AddSingleton<IExamplePlugin>(this);
         services.AddSingleton(Config);
         services.AddSingleton<IApplication, Application>();
 

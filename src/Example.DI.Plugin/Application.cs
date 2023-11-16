@@ -10,13 +10,13 @@ namespace Example.DI.Plugin;
 public class Application : IApplication
 {
     private readonly ILogger _logger;
-    private readonly IBasePlugin _plugin;
+    private readonly IExamplePlugin _plugin;
     private readonly PluginConfig _config;
     private readonly IPluginService _pluginService;
 
     public Application(
         ILogger<Application> logger,
-        IBasePlugin plugin,
+        IExamplePlugin plugin,
         PluginConfig config,
         IPluginService pluginService)
     {

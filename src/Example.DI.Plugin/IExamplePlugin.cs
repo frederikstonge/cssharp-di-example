@@ -5,7 +5,7 @@ using CounterStrikeSharp.API.Modules.Timers;
 
 namespace Example.DI.Plugin;
 
-public interface IBasePlugin : IPlugin
+public interface IExamplePlugin : IPlugin
 {
     string ModuleAuthor { get; }
 
