@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Example.DI.Plugin.Factories;
 
-public class TestFactory : ITestFactory
+public class TestServiceFactory : ITestServiceFactory
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public TestFactory(IServiceProvider serviceProvider)
+    public TestServiceFactory(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }

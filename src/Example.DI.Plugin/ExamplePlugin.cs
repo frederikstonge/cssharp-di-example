@@ -93,7 +93,7 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
         services.AddSingleton<IApplication, Application>();
 
         // Register factories here
-        services.AddSingleton<ITestFactory, TestFactory>();
+        services.AddSingleton<ITestServiceFactory, TestServiceFactory>();
 
         // Register other services here
         services.AddSingleton<IPluginService, PluginService>();

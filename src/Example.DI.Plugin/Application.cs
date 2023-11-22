@@ -17,7 +17,7 @@ public class Application : IApplication
     private readonly IExamplePlugin _plugin;
     private readonly PluginConfig _config;
     private readonly IPluginService _pluginService;
-    private readonly ITestFactory _testFactory;
+    private readonly ITestServiceFactory _testServiceFactory;
 
     /// <summary>
     /// Create instance of Application
@@ -31,13 +31,13 @@ public class Application : IApplication
         IExamplePlugin plugin,
         PluginConfig config,
         IPluginService pluginService,
-        ITestFactory testFactory)
+        ITestServiceFactory testFactory)
     {
         _logger = logger;
         _plugin = plugin;
         _config = config;
         _pluginService = pluginService;
-        _testFactory = testFactory;
+        _testServiceFactory = testFactory;
     }
 
     public ITestService? TestService { get; private set; }
@@ -47,7 +47,7 @@ public class Application : IApplication
     /// </summary>
     public void Initialize()
     {
-        TestService = _testFactory.Create("Service 1");
+        TestService = _testServiceFactory.Create("Service 1");
         
         _plugin.AddCommand("test", "test method", Test);
         _plugin.RegisterListener<Listeners.OnMapStart>(OnMapStart);
