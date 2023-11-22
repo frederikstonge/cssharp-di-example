@@ -2,6 +2,7 @@
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes;
 using Example.DI.Plugin.Facades;
+using Example.DI.Plugin.Factories;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ namespace Example.DI.Plugin;
 /// <summary>
 /// Example plugin class
 /// </summary>
-[MinimumApiVersion(53)]
+[MinimumApiVersion(66)]
 public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
 {
     private readonly string _moduleVersion;
@@ -90,6 +91,9 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
         services.AddSingleton<IExamplePlugin>(this);
         services.AddSingleton(Config);
         services.AddSingleton<IApplication, Application>();
+
+        // Register factories here
+        services.AddSingleton<ITestFactory, TestFactory>();
 
         // Register other services here
         services.AddSingleton<IPluginService, PluginService>();

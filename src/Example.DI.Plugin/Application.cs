@@ -1,6 +1,7 @@
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Timers;
+using Example.DI.Plugin.Factories;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,7 @@ public class Application : IApplication
     private readonly IExamplePlugin _plugin;
     private readonly PluginConfig _config;
     private readonly IPluginService _pluginService;
+    private readonly ITestFactory _testFactory;
 
     /// <summary>
     /// Create instance of Application
@@ -28,19 +30,25 @@ public class Application : IApplication
         ILogger<Application> logger,
         IExamplePlugin plugin,
         PluginConfig config,
-        IPluginService pluginService)
+        IPluginService pluginService,
+        ITestFactory testFactory)
     {
         _logger = logger;
         _plugin = plugin;
         _config = config;
         _pluginService = pluginService;
+        _testFactory = testFactory;
     }
+
+    public ITestService? TestService { get; private set; }
 
     /// <summary>
     /// Initialize event registrations and more
     /// </summary>
     public void Initialize()
     {
+        TestService = _testFactory.Create("Service 1");
+        
         _plugin.AddCommand("test", "test method", Test);
         _plugin.RegisterListener<Listeners.OnMapStart>(OnMapStart);
         _plugin.RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath);
