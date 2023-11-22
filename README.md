@@ -7,5 +7,5 @@
 - ILogger implementation (Console provider in example)
 
 # References
-[CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp)
-[PugSharp (Using my template)](https://github.com/Lan2Play/PugSharp)
+- [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp)
+- [PugSharp](https://github.com/Lan2Play/PugSharp) (Using my template)
