@@ -3,17 +3,17 @@ using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes;
 using Example.DI.Plugin.Facades;
 using Example.DI.Plugin.Factories;
+using Example.DI.Plugin.Logging;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Example.DI.Plugin;
 
 /// <summary>
 /// Example plugin class
 /// </summary>
-[MinimumApiVersion(66)]
+[MinimumApiVersion(67)]
 public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
 {
     private readonly string _moduleVersion;
@@ -85,7 +85,7 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
 
         services.AddLogging(options => 
         {
-            options.AddConsole();
+            options.AddCSSharp(Logger);
         });
 
         services.AddSingleton<IExamplePlugin>(this);
