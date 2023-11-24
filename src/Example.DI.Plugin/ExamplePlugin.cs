@@ -13,7 +13,7 @@ namespace Example.DI.Plugin;
 /// <summary>
 /// Example plugin class
 /// </summary>
-[MinimumApiVersion(67)]
+[MinimumApiVersion(71)]
 public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
 {
     private readonly string _moduleVersion;
