@@ -19,7 +19,7 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
     private readonly string _moduleVersion;
     private ServiceProvider? _serviceProvider;
     private PluginConfig? _config;
-    private IApplication? _application; 
+    private IApplication? _application;
 
     /// <summary>
     /// Create instance of ExamplePlugin
@@ -85,6 +85,7 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
 
         services.AddLogging(options => 
         {
+            // Add BasePlugin Logger in providers (Console + file)
             options.AddCSSharp(Logger);
         });
 
