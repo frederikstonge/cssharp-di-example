@@ -4,14 +4,11 @@ namespace Example.DI.Plugin.Logging;
 
 public class CSSharpLoggerProvider : ILoggerProvider
 {
-    private readonly ILogger _logger;
-
-    public CSSharpLoggerProvider(ILogger logger)
+    public CSSharpLoggerProvider()
     {
-        _logger = logger;
     }
 
-    public ILogger CreateLogger(string categoryName) => _logger;
+    public ILogger CreateLogger(string categoryName) => CounterStrikeSharp.API.Core.Logging.CoreLogging.Factory.CreateLogger(categoryName);
 
     public void Dispose()
     {

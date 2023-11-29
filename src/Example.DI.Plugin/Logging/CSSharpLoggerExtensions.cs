@@ -6,9 +6,10 @@ namespace Example.DI.Plugin.Logging;
 
 public static class CSSharpLoggerExtensions
 {
-    public static ILoggingBuilder AddCSSharp(this ILoggingBuilder builder, ILogger logger)
+    public static ILoggingBuilder AddCSSharp(this ILoggingBuilder builder)
     {
-        builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider>(new CSSharpLoggerProvider(logger)));
+        var descriptor = new ServiceDescriptor(typeof(ILoggerFactory), CounterStrikeSharp.API.Core.Logging.CoreLogging.Factory);
+        builder.Services.Replace(descriptor);
         return builder;
     }
 }

@@ -13,7 +13,6 @@ namespace Example.DI.Plugin;
 /// <summary>
 /// Example plugin class
 /// </summary>
-[MinimumApiVersion(71)]
 public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
 {
     private readonly string _moduleVersion;
@@ -85,8 +84,8 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
 
         services.AddLogging(options => 
         {
-            // Add BasePlugin Logger in providers (Console + file)
-            options.AddCSSharp(Logger);
+            // Add CSSharp Logger Provider
+            options.AddCSSharp();
         });
 
         services.AddSingleton<IExamplePlugin>(this);
