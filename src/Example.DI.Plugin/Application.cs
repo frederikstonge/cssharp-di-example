@@ -4,7 +4,9 @@ using CounterStrikeSharp.API.Modules.Timers;
 using Example.DI.Plugin.Factories;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Example.DI.Plugin;
 
@@ -14,8 +16,9 @@ namespace Example.DI.Plugin;
 public class Application : IApplication
 {
     private readonly ILogger _logger;
+    private readonly IStringLocalizer _localizer;
     private readonly IExamplePlugin _plugin;
-    private readonly PluginConfig _config;
+    private readonly IOptions<PluginConfig> _config;
     private readonly IPluginService _pluginService;
     private readonly ITestServiceFactory _testServiceFactory;
 
@@ -28,12 +31,14 @@ public class Application : IApplication
     /// <param name="pluginService">Plugin service</param>
     public Application(
         ILogger<Application> logger,
+        IStringLocalizer<Application> localizer,
         IExamplePlugin plugin,
-        PluginConfig config,
+        IOptions<PluginConfig> config,
         IPluginService pluginService,
         ITestServiceFactory testFactory)
     {
         _logger = logger;
+        _localizer = localizer;
         _plugin = plugin;
         _config = config;
         _pluginService = pluginService;

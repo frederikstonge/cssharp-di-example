@@ -1,31 +1,34 @@
 ﻿using System.Reflection;
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Core.Attributes;
 using Example.DI.Plugin.Facades;
 using Example.DI.Plugin.Factories;
-using Example.DI.Plugin.Logging;
 using Example.DI.Plugin.Models;
 using Example.DI.Plugin.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Example.DI.Plugin;
 
 /// <summary>
 /// Example plugin class
 /// </summary>
-public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginConfig>
+public class ExamplePlugin : BasePlugin, IExamplePlugin
 {
+    private readonly ILoggerFactory _loggerFactory;
     private readonly string _moduleVersion;
     private ServiceProvider? _serviceProvider;
-    private PluginConfig? _config;
     private IApplication? _application;
 
     /// <summary>
     /// Create instance of ExamplePlugin
     /// </summary>
-    public ExamplePlugin()
+    public ExamplePlugin(ILoggerFactory loggerFactory)
     {
-        _moduleVersion = typeof(ExamplePlugin).Assembly!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
+        _loggerFactory = loggerFactory;
+        _moduleVersion = typeof(ExamplePlugin)
+                         .Assembly!
+                         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()!
+                         .InformationalVersion;
     }
 
     /// <summary>
@@ -49,24 +52,6 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
     public override string ModuleAuthor => "frederikstonge";
 
     /// <summary>
-    /// Config that is parsed by CSSharp
-    /// </summary>
-    public PluginConfig Config 
-    {
-        get => _config ?? throw new NullReferenceException(nameof(Config));
-        set => _config = value; 
-    }
-
-    /// <summary>
-    /// Called when the config is parsed by CSSharp
-    /// </summary>
-    /// <param name="config">Parsed config</param>
-    public void OnConfigParsed(PluginConfig config)
-    {
-        Config = config;
-    }
-
-    /// <summary>
     /// Method that is called on load of the plugin
     /// </summary>
     /// <param name="hotReload">Is called from hot reload</param>
@@ -74,22 +59,30 @@ public class ExamplePlugin : BasePlugin, IExamplePlugin, IPluginConfig<PluginCon
     {
         base.Load(hotReload);
 
-        if (!Config.IsEnabled)
-        {
-            return;
-        }
-
         // Create DI container
         var services = new ServiceCollection();
 
-        services.AddLogging(options => 
+        // Add configuration
+        services
+            .AddOptions<PluginConfig>()
+            .BindConfiguration(string.Empty)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        // Add localization
+        services.AddLocalization(options =>
         {
-            // Add CSSharp Logger Provider
-            options.AddCSSharp();
+            options.ResourcesPath = "Resources";
         });
 
+        // Add logging
+        services.AddSingleton(_loggerFactory);
+        services.AddLogging();
+
+        // Add the plugin instance
         services.AddSingleton<IExamplePlugin>(this);
-        services.AddSingleton(Config);
+
+        // Register Application
         services.AddSingleton<IApplication, Application>();
 
         // Register factories here
